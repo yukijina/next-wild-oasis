@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { getCabin } from '@/app/_lib/data-service';
+import { getCabin, getCabins } from '@/app/_lib/data-service';
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from '@heroicons/react/24/solid';
 
 // export const metadata = {
@@ -11,6 +11,18 @@ import { EyeSlashIcon, MapPinIcon, UsersIcon } from '@heroicons/react/24/solid';
 export async function generateMetadata({ params }) {
   const { name } = await getCabin(params.cabinId);
   return { title: `Cabin ${name}` };
+}
+
+// tell next js that which paramas exist dynamic routes. statically display
+// you can't see a difference in frontend but when you run npm build, it changes from dynamic to static in cabinId route --> we can do static site generation
+export async function generateStaticParams() {
+  const cabins = await getCabins();
+
+  // name should be cabinId - it matches params.cabinId in getCabin(params.cabinId) next
+  const ids = cabins.map((cabin) => ({ cabinId: String(cabin.id) }));
+  // console.log(ids);
+  // we want to these ids to prerender as static page
+  return ids;
 }
 
 // cabinId can get through params in url. No need to pass props from CabinCard
