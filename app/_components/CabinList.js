@@ -1,5 +1,5 @@
 // Next 15+ connection() from next/server
-import { unstable_noStore as noStore } from 'next/cashe';
+import { unstable_noStore as noStore } from 'next/cache';
 import CabinCard from '../_components/CabinCard';
 import { getCabins } from '../_lib/data-service';
 
