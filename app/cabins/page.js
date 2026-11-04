@@ -2,6 +2,14 @@ import { Suspense } from 'react';
 import CabinList from '../_components/CabinList';
 import Spinner from '../_components/Spinner';
 
+// make this page dynamic. Reavalidate everytime
+// any change in db will be reflected in front page immediately
+// value is depending on how often you want to get fresh data
+// value unit is per second. Here the value is 60 * 60= 1hr (3600 sec)
+// data change -> 1 hr -> page refresh -> data refrect
+// another way - optout from cashe. See CabinList noStore()
+export const revalidate = 3600;
+
 export const metadata = {
   title: 'Cabins',
 };

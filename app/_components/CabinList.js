@@ -1,7 +1,12 @@
+// Next 15+ connection() from next/server
+import { unstable_noStore as noStore } from 'next/cashe';
 import CabinCard from '../_components/CabinCard';
 import { getCabins } from '../_lib/data-service';
 
 export default async function CabinList() {
+  // opt out from cashe. no cashe data request. always fresh data when data in db is changed
+  // noStore();
+
   const cabins = await getCabins();
 
   if (!cabins.length) return null;
